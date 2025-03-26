@@ -1,0 +1,67 @@
+
+# .gitignore
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+coverage.xml
+.coverage
+htmlcov/
+
+
+# Virtual Environments
+venv/
+.venv/
+env/
+.env/
+
+# Environment variables
+.env
+.env.local
+.env.prod
+.env.dev
+.env.test
+
+# Logs
+logs/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Backups
+backups/
+*.bak
+*.dmp
+*.dump
+*.sql
+*.gz
+
+# Docker volumes
+.docker-data/
+
+# k8s secrets
+*kubeconfig*
+*kube-config*
