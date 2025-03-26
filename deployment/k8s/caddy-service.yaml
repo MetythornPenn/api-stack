@@ -1,0 +1,17 @@
+# deployment/k8s/caddy-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: caddy-service
+  namespace: app-namespace
+spec:
+  selector:
+    app: caddy
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  - name: https
+    port: 443
+    targetPort: 443
+  type: ClusterIP

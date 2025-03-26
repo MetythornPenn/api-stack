@@ -1,0 +1,46 @@
+# deployment/k8s/caddy-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy-deployment
+  namespace: app-namespace
+  labels:
+    app: caddy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caddy
+  template:
+    metadata:
+      labels:
+        app: caddy
+    spec:
+      containers:
+      - name: caddy
+        image: caddy:2-alpine
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - name: caddy-config
+          mountPath: /etc/caddy/Caddyfile
+          subPath: Caddyfile
+        - name: caddy-data
+          mountPath: /data
+      volumes:
+      - name: caddy-config
+        configMap:
+          name: caddy-config
+      - name: caddy-data
+        persistentVolumeClaim:
+          claimName: caddy-pvc
+
+---

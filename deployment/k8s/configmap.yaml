@@ -1,0 +1,28 @@
+# deployment/k8s/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: app-namespace
+data:
+  APP_ENV: "prod"
+  PROJECT_NAME: "FastAPI Boilerplate"
+  SWAGGER_UI_ENABLED: "false"
+  DATABASE_TYPE: "postgres"
+  POSTGRES_SERVER: "postgres-service"
+  POSTGRES_DB: "app"
+  POSTGRES_PORT: "5432"
+  REDIS_SERVER: "redis-service"
+  REDIS_PORT: "6379"
+  REDIS_DB: "0"
+  MINIO_SERVER: "minio-service"
+  MINIO_PORT: "9000"
+  MINIO_BUCKET_NAME: "app-bucket"
+  RATE_LIMIT_ENABLED: "true"
+  RATE_LIMIT_REQUESTS: "60"
+  RATE_LIMIT_WINDOW_SECONDS: "60"
+  CACHE_ENABLED: "true"
+  CACHE_EXPIRE_SECONDS: "300"
+  LOG_LEVEL: "INFO"
+
+---

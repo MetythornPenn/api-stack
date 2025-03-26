@@ -1,0 +1,53 @@
+# deployment/k8s/caddy-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddy-config
+  namespace: app-namespace
+data:
+  Caddyfile: |
+    {
+        auto_https off
+    }
+    
+    :80 {
+        log {
+            output stdout
+            format json
+        }
+    
+        # Handle /api routes
+        handle /api/* {
+            reverse_proxy api-service:8000
+        }
+    
+        # Handle static files for MinIO
+        handle /minio/* {
+            uri strip_prefix /minio
+            reverse_proxy minio-service:9000
+        }
+    
+        # Handle all other routes
+        handle {
+            reverse_proxy api-service:8000
+        }
+    
+        # Add security headers
+        header {
+            # Enable HSTS
+            Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+            # Disable content-type sniffing
+            X-Content-Type-Options "nosniff"
+            # XSS Protection
+            X-XSS-Protection "1; mode=block"
+            # Clickjacking protection
+            X-Frame-Options "DENY"
+            # Referrer policy
+            Referrer-Policy "strict-origin-when-cross-origin"
+            # Content security policy
+            Content-Security-Policy "default-src 'self'; script-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'"
+        }
+    }
+
+---
+
