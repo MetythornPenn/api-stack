@@ -9,7 +9,7 @@ version = "0.1.0"
 description = "FastAPI Boilerplate with PostgreSQL, Redis, MinIO, and more"
 readme = "README.md"
 requires-python = ">=3.10"
-license = {file = "LICENSE"}
+license = "MIT"  # Changed from file reference to string identifier
 authors = [
     {name = "Your Name", email = "your.email@example.com"},
 ]
@@ -40,6 +40,10 @@ dependencies = [
     "celery>=5.3.6",
     "typer>=0.9.0",
 ]
+
+# Added to specify which files to include in the package
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
 
 [project.optional-dependencies]
 dev = [
@@ -100,4 +104,3 @@ exclude = [
 [tool.coverage.run]
 source = ["app"]
 omit = ["tests/*", "alembic/*"]
-
